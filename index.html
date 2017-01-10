@@ -1,59 +1,49 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<form>   
-Say:<input type="text" id=¡°robot¡± onkeyup="showHint(this.value)"/>
-</form>  
-<p>Ans: <span id="txtHint"></span></p>        
+<form>
+  Say:
+  <input type="text" id="robot" onkeyup="showHint(this.value)"/>
+</form>
+<p>Ans: <span id="txtHint"></span></p>
 <script>  
-var xmlHttp  
-function showHint(str)  
-{  
-  if (str.length==0)  
-    {   
-    document.getElementById("txtHint").innerHTML="";  
-    return;  
-    }  
-  xmlHttp=GetXmlHttpObject()  
-  if (xmlHttp==null)  
-    {  
-    alert ("ÄúµÄä¯ÀÀÆ÷²»Ö§³ÖAJAX£¡");  
-    return;  
-    }  
-  var url="http://www.tuling123.com/openapi/api?key=ac7b6152eb2047a1b7e45678bca5b545";  
-  url=url+"&info="+str;  
-  //url = encodeURI(encodeURI(url));
-  xmlHttp.onreadystatechange=stateChanged;  
-  xmlHttp.open("GET",url,true);  
-  xmlHttp.send(null);  
-}   
-function stateChanged()   
-{   
-if (xmlHttp.readyState==4)  
-{   
-var response = xmlHttp.responseText;
-var answer = JSON.parse(response).text;
-document.getElementById("txtHint").innerHTML=answer;  
-}  
-}  
-function GetXmlHttpObject()  
-{  
-  var xmlHttp=null;  
-  try  
-    {  
-    // Firefox, Opera 8.0+, Safari  
-    xmlHttp=new XMLHttpRequest();  
-    }  
-  catch(e)  
-    {  
-    // Internet Explorer  
-    try  
-      {  
-      xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");  
-      }  
-    catch (e)  
-      {  
-      xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");  
-      }  
-    }  
-return xmlHttp;  
-}  
+  var xmlHttp
+  function showHint(str) {
+    if (str.length == 0) {
+      document.getElementById("txtHint").innerHTML = "";
+      return;
+    }
+    xmlHttp = GetXmlHttpObject()
+    if (xmlHttp == null) {
+      alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½AJAXï¿½ï¿½");
+      return;
+    }
+    var url = "http://www.tuling123.com/openapi/api?key=ac7b6152eb2047a1b7e45678bca5b545";
+    url = url + "&info=" + str;
+    //url = encodeURI(encodeURI(url));
+    xmlHttp.addEventListener('readystatechange', function () {
+      if (xmlHttp.readyState === 4) {
+        var answer = JSON.parse(xmlHttp.responseText).text;;
+        document.getElementById("txtHint").innerHTML = answer;
+      }
+    });
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+  }
+
+  function GetXmlHttpObject() {
+    var xmlHttp = null;
+    try {
+      // Firefox, Opera 8.0+, Safari  
+      xmlHttp = new XMLHttpRequest();
+    }
+    catch (e) {
+      // Internet Explorer  
+      try {
+        xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+      }
+      catch (e) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    }
+    return xmlHttp;
+  }  
 </script>
